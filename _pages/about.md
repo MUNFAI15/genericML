@@ -4,8 +4,6 @@ title: About Me
 permalink: /about/
 ---
 
-This website is powered by **[fastpages](https://github.com/fastai/fastpages)** [^1].
+I am a final year student studying Econometrics and Mathematical Economics at the London School of Economics. 
 
-
-
-[^1]:a blogging platform that natively supports Jupyter notebooks in addition to other formats.
+I am working on my dissertation to infer heterogeneous causality using Machine Learning, and would wish to extend my learning in data science / analytics / machine learning through future post-graduate studies. 
