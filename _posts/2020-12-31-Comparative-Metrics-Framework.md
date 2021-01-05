@@ -26,13 +26,15 @@ Ratio of Counts(ROC)
 
 This evaluates the overlap in frequency counts between the original and synthetic dataset. I coded the mathematical equations introduced by Taub et el. (2020) in the **cmf** package.
 
-$\[\frac{
+\begin{equation}
+\frac{
 min(y_{o}, y_{s})
 }
 {max(y_{o}, y_{s})
-}\]$
+}\
+\end{equation}
 
-$\(y_{o}\)$ denotes the frequency count (by proportion) for a particular variable of the original dataset. $\(y_{s}\)$ denotes the same for a synthetic dataset. Intuitively, this is analogous to the intersect of the 2 datasets divided by their union. The ROC score is bounded by 1 and 0. The lower the ROC score, the more distant the 2 datasets are in distribution. The function ROC\_score evaluates the ROC score for all individual columns and averages them in the final output.
+$y_{o}$ denotes the frequency count (by proportion) for a particular variable of the original dataset. $y_{s}$ denotes the same for a synthetic dataset. Intuitively, this is analogous to the intersect of the 2 datasets divided by their union. The ROC score is bounded by 1 and 0. The lower the ROC score, the more distant the 2 datasets are in distribution. The function ROC\_score evaluates the ROC score for all individual columns and averages them in the final output.
 
 ROC\_numeric evaluates the ROC score for numerical variables, because continuous numerical values in the original and synthetic data may not match exactly. For instance, 10,000 may be arbitrarily synthesised as 10,001 in the synthetic dataset but one may choose to treat them as the same value. Hence, ROC\_numeric rounds numeric values off to a user-specified value.
 
@@ -57,34 +59,42 @@ Disclosure Risk
 Differential Correct Attribution Probabibility (DCAP)
 -----------------------------------------------------
 
-I coded functions for DCAP (Taub et al, 2018) in the R package **cmf**. DCAP works on the assumption that an intruder has certain *key information* about individuals. Such key information are highly observable or obtainable - for instance a person’s gender. Using these key information, the intruder attempts to extract *target information* that are more private - for instance a person’s income level. We define \(d_{o}\) as the original data and \(K_{o}\) and \(T_{o}\) as vectors for the key and target variables.
+I coded functions for DCAP (Taub et al, 2018) in the R package **cmf**. DCAP works on the assumption that an intruder has certain *key information* about individuals. Such key information are highly observable or obtainable - for instance a person’s gender. Using these key information, the intruder attempts to extract *target information* that are more private - for instance a person’s income level. We define $d_{o}$ as the original data and $K_{o}$ and $T_{o}$ as vectors for the key and target variables.
 
-$\[d_{o} = \{K_{o} , T_{o}\}\]$
+\begin{equation}
+d_{o} = \{K_{o} , T_{o}\}
+\end{equation}
 
-Similarly, \(d_{s}\) is the synthetic data.
+Similarly, $d_{s}$ is the synthetic data.
 
-$\[d_{s} = \{K_{s} , T_{s}\}\]$
+\begin{equation}
+d_{s} = {K_{s} , T_{s}}
+\end{equation}
 
-The Correct Attribution Probability (CAP) for the record \(j\) is the probability of its target variables given its key variables. This is coded as the function CAP\_original . We can think of the CAP score for the original dataset to be an approximate upper bound - it would not make much sense for any other dataset to reveal more information than the original dataset.
+The Correct Attribution Probability (CAP) for the record $j$ is the probability of its target variables given its key variables. This is coded as the function CAP\_original . We can think of the CAP score for the original dataset to be an approximate upper bound - it would not make much sense for any other dataset to reveal more information than the original dataset.
 
-\[CAP_{o,j} = Pr(T_{o,j} | K_{o,j}) = \frac{
+\begin{equation}
+CAP_{o,j} = Pr(T_{o,j} | K_{o,j}) = \frac{
 \sum\limits_{i=1}^n 
 [T_{o,i} = T_{o,j} ,  K_{o,i} = K_{o,j}] }
 {\sum\limits_{i=1}^n 
-[ K_{o,i} = K_{o,j}]}\]
+[ K_{o,i} = K_{o,j}]}
+\end{equation}
 
-where the square brackets are Iverson brackets and \(n\) is the number of records.
+where the square brackets are Iverson brackets and $n$ is the number of records.
 
-The CAP for the record \(j\) based on a corresponding synthetic dataset \(d_{s}\) is the same probability but derived from \(d_{s}\). This has been coded as CAP\_synthetic.
+The CAP for the record $j$ based on a corresponding synthetic dataset $d_{s}$ is the same probability but derived from $d_{s}$. This has been coded as CAP\_synthetic.
 
-\[CAP_{s,j} = Pr(T_{o,j} | K_{o,j})_{s}
+\begin{equation}
+CAP_{s,j} = Pr(T_{o,j} | K_{o,j})_{s}
 = \frac{
 \sum\limits_{i=1}^n 
 [T_{s,i} = T_{o,j} ,  K_{s,i} = K_{o,j}] }
 {\sum\limits_{i=1}^n 
-[ K_{s,i} = K_{o,j}]}\]
+[ K_{s,i} = K_{o,j}]}
+\end{equation}
 
-For any record in the original dataset for which there is no corresponding record in the synthetic dataset with the same key variables, the denominator in Equation \(5\) will be 0 and the CAP is therefore undefined. We can record non-matches as zero or treat them as undefined; the record is skipped over and does not count towards \(n\).
+For any record in the original dataset for which there is no corresponding record in the synthetic dataset with the same key variables, the denominator in Equation (5) will be 0 and the CAP is therefore undefined. We can record non-matches as zero or treat them as undefined; the record is skipped over and does not count towards $n$.
 
 To calculate the overall CAP for a synthetic dataset, we divide its CAP score by its corresponding upper bound - the CAP score for the original dataset. This process is repeated for all combinations of key and target variables.
 
