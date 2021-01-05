@@ -1,8 +1,11 @@
+---
 toc: true
 layout: post
 description: Comparative Metrics Framework to evaluate the performance of synthetic data
 categories: [markdown]
 title: Comparative Metrics Framework 
+---
+# Comparative Metrics Framework 
 
 This abridged document[1] presents a comprehensive *comparative metrics framework* to evaluate the performance of synthetic data based on general utility, specific utility and disclosure risk. This is one of the few publicly available benchmarks to evaluate the quality of synthetic data. I will also provide some recommendations on best practices for generating synthetic data.
 
