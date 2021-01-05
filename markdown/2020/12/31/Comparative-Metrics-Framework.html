@@ -157,13 +157,15 @@ window.onload = wrap_img;
 
 <p>This evaluates the overlap in frequency counts between the original and synthetic dataset. I coded the mathematical equations introduced by Taub et el. (2020) in the <strong>cmf</strong> package.</p>
 
-<p>$[\frac{
+<p>\begin{equation}
+\frac{
 min(y_{o}, y_{s})
 }
 {max(y_{o}, y_{s})
-}]$</p>
+}<br>
+\end{equation}</p>
 
-<p>$(y_{o})$ denotes the frequency count (by proportion) for a particular variable of the original dataset. $(y_{s})$ denotes the same for a synthetic dataset. Intuitively, this is analogous to the intersect of the 2 datasets divided by their union. The ROC score is bounded by 1 and 0. The lower the ROC score, the more distant the 2 datasets are in distribution. The function ROC_score evaluates the ROC score for all individual columns and averages them in the final output.</p>
+<p>$y_{o}$ denotes the frequency count (by proportion) for a particular variable of the original dataset. $y_{s}$ denotes the same for a synthetic dataset. Intuitively, this is analogous to the intersect of the 2 datasets divided by their union. The ROC score is bounded by 1 and 0. The lower the ROC score, the more distant the 2 datasets are in distribution. The function ROC_score evaluates the ROC score for all individual columns and averages them in the final output.</p>
 
 <p>ROC_numeric evaluates the ROC score for numerical variables, because continuous numerical values in the original and synthetic data may not match exactly. For instance, 10,000 may be arbitrarily synthesised as 10,001 in the synthetic dataset but one may choose to treat them as the same value. Hence, ROC_numeric rounds numeric values off to a user-specified value.</p>
 
@@ -188,34 +190,42 @@ min(y_{o}, y_{s})
 <h2 id="differential-correct-attribution-probabibility-dcap">
 <a class="anchor" href="#differential-correct-attribution-probabibility-dcap" aria-hidden="true"><span class="octicon octicon-link"></span></a>Differential Correct Attribution Probabibility (DCAP)</h2>
 
-<p>I coded functions for DCAP (Taub et al, 2018) in the R package <strong>cmf</strong>. DCAP works on the assumption that an intruder has certain <em>key information</em> about individuals. Such key information are highly observable or obtainable - for instance a person’s gender. Using these key information, the intruder attempts to extract <em>target information</em> that are more private - for instance a person’s income level. We define (d_{o}) as the original data and (K_{o}) and (T_{o}) as vectors for the key and target variables.</p>
+<p>I coded functions for DCAP (Taub et al, 2018) in the R package <strong>cmf</strong>. DCAP works on the assumption that an intruder has certain <em>key information</em> about individuals. Such key information are highly observable or obtainable - for instance a person’s gender. Using these key information, the intruder attempts to extract <em>target information</em> that are more private - for instance a person’s income level. We define $d_{o}$ as the original data and $K_{o}$ and $T_{o}$ as vectors for the key and target variables.</p>
 
-<p>$[d_{o} = {K_{o} , T_{o}}]$</p>
+<p>\begin{equation}
+d_{o} = {K_{o} , T_{o}}
+\end{equation}</p>
 
-<p>Similarly, (d_{s}) is the synthetic data.</p>
+<p>Similarly, $d_{s}$ is the synthetic data.</p>
 
-<p>$[d_{s} = {K_{s} , T_{s}}]$</p>
+<p>\begin{equation}
+d_{s} = {K_{s} , T_{s}}
+\end{equation}</p>
 
-<p>The Correct Attribution Probability (CAP) for the record (j) is the probability of its target variables given its key variables. This is coded as the function CAP_original . We can think of the CAP score for the original dataset to be an approximate upper bound - it would not make much sense for any other dataset to reveal more information than the original dataset.</p>
+<p>The Correct Attribution Probability (CAP) for the record $j$ is the probability of its target variables given its key variables. This is coded as the function CAP_original . We can think of the CAP score for the original dataset to be an approximate upper bound - it would not make much sense for any other dataset to reveal more information than the original dataset.</p>
 
-<p>[CAP_{o,j} = Pr(T_{o,j} | K_{o,j}) = \frac{
+<p>\begin{equation}
+CAP_{o,j} = Pr(T_{o,j} | K_{o,j}) = \frac{
 \sum\limits_{i=1}^n 
 [T_{o,i} = T_{o,j} ,  K_{o,i} = K_{o,j}] }
 {\sum\limits_{i=1}^n 
-[ K_{o,i} = K_{o,j}]}]</p>
+[ K_{o,i} = K_{o,j}]}
+\end{equation}</p>
 
-<p>where the square brackets are Iverson brackets and (n) is the number of records.</p>
+<p>where the square brackets are Iverson brackets and $n$ is the number of records.</p>
 
-<p>The CAP for the record (j) based on a corresponding synthetic dataset (d_{s}) is the same probability but derived from (d_{s}). This has been coded as CAP_synthetic.</p>
+<p>The CAP for the record $j$ based on a corresponding synthetic dataset $d_{s}$ is the same probability but derived from $d_{s}$. This has been coded as CAP_synthetic.</p>
 
-<p>[CAP_{s,j} = Pr(T_{o,j} | K_{o,j})<em>{s}
+<p>\begin{equation}
+CAP_{s,j} = Pr(T_{o,j} | K_{o,j})<em>{s}
 = \frac{
 \sum\limits</em>{i=1}^n 
 [T_{s,i} = T_{o,j} ,  K_{s,i} = K_{o,j}] }
 {\sum\limits_{i=1}^n 
-[ K_{s,i} = K_{o,j}]}]</p>
+[ K_{s,i} = K_{o,j}]}
+\end{equation}</p>
 
-<p>For any record in the original dataset for which there is no corresponding record in the synthetic dataset with the same key variables, the denominator in Equation (5) will be 0 and the CAP is therefore undefined. We can record non-matches as zero or treat them as undefined; the record is skipped over and does not count towards (n).</p>
+<p>For any record in the original dataset for which there is no corresponding record in the synthetic dataset with the same key variables, the denominator in Equation (5) will be 0 and the CAP is therefore undefined. We can record non-matches as zero or treat them as undefined; the record is skipped over and does not count towards $n$.</p>
 
 <p>To calculate the overall CAP for a synthetic dataset, we divide its CAP score by its corresponding upper bound - the CAP score for the original dataset. This process is repeated for all combinations of key and target variables.</p>
 
