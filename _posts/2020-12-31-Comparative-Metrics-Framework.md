@@ -59,11 +59,11 @@ Differential Correct Attribution Probabibility (DCAP)
 
 I coded functions for DCAP (Taub et al, 2018) in the R package **cmf**. DCAP works on the assumption that an intruder has certain *key information* about individuals. Such key information are highly observable or obtainable - for instance a person’s gender. Using these key information, the intruder attempts to extract *target information* that are more private - for instance a person’s income level. We define \(d_{o}\) as the original data and \(K_{o}\) and \(T_{o}\) as vectors for the key and target variables.
 
-\[d_{o} = \{K_{o} , T_{o}\}\]
+$\[d_{o} = \{K_{o} , T_{o}\}\]$
 
 Similarly, \(d_{s}\) is the synthetic data.
 
-\[d_{s} = \{K_{s} , T_{s}\}\]
+$\[d_{s} = \{K_{s} , T_{s}\}\]$
 
 The Correct Attribution Probability (CAP) for the record \(j\) is the probability of its target variables given its key variables. This is coded as the function CAP\_original . We can think of the CAP score for the original dataset to be an approximate upper bound - it would not make much sense for any other dataset to reveal more information than the original dataset.
 
