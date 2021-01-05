@@ -26,13 +26,13 @@ Ratio of Counts(ROC)
 
 This evaluates the overlap in frequency counts between the original and synthetic dataset. I coded the mathematical equations introduced by Taub et el. (2020) in the **cmf** package.
 
-\[\frac{
+$\[\frac{
 min(y_{o}, y_{s})
 }
 {max(y_{o}, y_{s})
-}\]
+}\]$
 
-\(y_{o}\) denotes the frequency count (by proportion) for a particular variable of the original dataset. \(y_{s}\) denotes the same for a synthetic dataset. Intuitively, this is analogous to the intersect of the 2 datasets divided by their union. The ROC score is bounded by 1 and 0. The lower the ROC score, the more distant the 2 datasets are in distribution. The function ROC\_score evaluates the ROC score for all individual columns and averages them in the final output.
+$\(y_{o}\)$ denotes the frequency count (by proportion) for a particular variable of the original dataset. $\(y_{s}\)$ denotes the same for a synthetic dataset. Intuitively, this is analogous to the intersect of the 2 datasets divided by their union. The ROC score is bounded by 1 and 0. The lower the ROC score, the more distant the 2 datasets are in distribution. The function ROC\_score evaluates the ROC score for all individual columns and averages them in the final output.
 
 ROC\_numeric evaluates the ROC score for numerical variables, because continuous numerical values in the original and synthetic data may not match exactly. For instance, 10,000 may be arbitrarily synthesised as 10,001 in the synthetic dataset but one may choose to treat them as the same value. Hence, ROC\_numeric rounds numeric values off to a user-specified value.
 
