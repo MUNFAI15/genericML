@@ -8,6 +8,7 @@ https://MUNFAI15.github.io/genericML/
 
 # My Blog
 
+This is my attempt at creating a blog using fastpages. 
 
 _powered by [fastpages](https://github.com/fastai/fastpages)_
 
