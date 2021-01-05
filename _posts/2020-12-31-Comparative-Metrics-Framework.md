@@ -1,3 +1,9 @@
+toc: true
+layout: post
+description: Comparative Metrics Framework to evaluate the performance of synthetic data
+categories: [markdown]
+title: Comparative Metrics Framework 
+
 This abridged document[1] presents a comprehensive *comparative metrics framework* to evaluate the performance of synthetic data based on general utility, specific utility and disclosure risk. This is one of the few publicly available benchmarks to evaluate the quality of synthetic data. I will also provide some recommendations on best practices for generating synthetic data.
 
 Introduction
@@ -6,8 +12,6 @@ Introduction
 I introduce a *comparative metrics framework* heavily inspired by Taub et. al (2019). Rather than reinventing the wheel, my focus here is to provide a practical guide to its implementation. In the event where certain code were not previously publicly available, I uploaded them into an R package **cmf** [2].
 
 The functions used here are either from the **cmf** package or the synthpop package, which is a package to synthesise data. However, these functions can be generalised to any synthetic data generated with any method.
-
-for tree=<span> draw, text width=22mm, text centered, l sep=9mm, s sep=1mm</span> [Overall Performance, black [General Utility [Ratio of Counts] [Propensity Scores] ] [Specific Utility [Confidence Interval Overlap] ] [Disclosure Risk [Differential Correct Attribution Probability] ] ]
 
 General Utility
 ===============
